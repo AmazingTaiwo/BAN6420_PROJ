@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Blue color */
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9; /* Light grey background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Update Profile</h1>
+
+<form action="/update_profile/{{ user['email'] }}" method="POST">
+    <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" value="{{ user['name'] }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email" value="{{ user['email'] }}" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age: </label>
+        <select id="age" name="age" required>
+            <option value="18-25" {% if user['age'] == '18-25' %}selected{% endif %}>18-25</option>
+            <option value="26-35" {% if user['age'] == '26-35' %}selected{% endif %}>26-35</option>
+            <option value="36-45" {% if user['age'] == '36-45' %}selected{% endif %}>36-45</option>
+            <option value="46-60" {% if user['age'] == '46-60' %}selected{% endif %}>46-60</option>
+            <option value="60+" {% if user['age'] == '60+' %}selected{% endif %}>60+</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="gender">Gender: </label>
+        <select id="gender" name="gender" required>
+            <option value="Male" {% if user['gender'] == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if user['gender'] == 'Female' %}selected{% endif %}>Female</option>
+            <option value="Other" {% if user['gender'] == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="total_income">Total Income: </label>
+        <select id="total_income" name="total_income" required>
+            <option value="$0.00-$2000" {% if user['total_income'] == '$0.00-$2000' %}selected{% endif %}>0 - 2000</option>
+            <option value="$2001-$5000" {% if user['total_income'] == '$2001-$5000' %}selected{% endif %}>2001 - 5000</option>
+            <option value="$5001-$10,000" {% if user['total_income'] == '$5001-$10,000' %}selected{% endif %}>5001 - 10,000</option>
+            <option value="$10,001-$15000" {% if user['total_income'] == '$10,001-$15000' %}selected{% endif %}>10,001 - 15,000</option>
+            <option value="15,000 +" {% if user['total_income'] == '15,000 +' %}selected{% endif %}>15,000+</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="food">Food: </label>
+        <input type="number" id="food" name="food" value="{{ user['expenses']['food'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="transportation">Transportation: </label>
+        <input type="number" id="transportation" name="transportation" value="{{ user['expenses']['transportation'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="utilities">Utilities: </label>
+        <input type="number" id="utilities" name="utilities" value="{{ user['expenses']['utilities'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="entertainment">Entertainment: </label>
+        <input type="number" id="entertainment" name="entertainment" value="{{ user['expenses']['entertainment'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="school_fees">School Fees: </label>
+        <input type="number" id="school_fees" name="school_fees" value="{{ user['expenses']['school_fees'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="shopping">Shopping: </label>
+        <input type="number" id="shopping" name="shopping" value="{{ user['expenses']['shopping'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="healthcare">Healthcare: </label>
+        <input type="number" id="healthcare" name="healthcare" value="{{ user['expenses']['healthcare'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <div class="form-group">
+        <label for="other">Other: </label>
+        <input type="number" id="other" name="other" value="{{ user['expenses']['other'] }}" step="0.01" placeholder="$0.00">
+    </div>
+
+    <button type="submit">Update Profile</button>
+</form>
+
+</body>
+</html>

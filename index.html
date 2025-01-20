@@ -99,76 +99,16 @@
 </head>
 <body>
     <h1>Participant Biodata Form</h1>
-    <form method="POST" action="">
-<script>
-    // Function to handle form submission
-    document.querySelector('form').addEventListener('submit', async function(event) {
-        event.preventDefault();  // Prevent default form submission
-
-        const formData = new FormData(this);
-        const data = {
-            name: formData.get('name'),
-            age: formData.get('age'),
-            gender: formData.get('gender'),
-            expense_categories: []
-        };
-
-        // Check which expense categories are selected
-        if (document.getElementById('utilities').checked) {
-            data.expense_categories.push({
-                category: "Utilities",
-                amount: parseFloat(formData.get('utilities_amount')) || 0
-            });
-        }
-        if (document.getElementById('entertainment').checked) {
-            data.expense_categories.push({
-                category: "Entertainment",
-                amount: parseFloat(formData.get('entertainment_amount')) || 0
-            });
-        }
-        if (document.getElementById('school_fees').checked) {
-            data.expense_categories.push({
-                category: "School Fees",
-                amount: parseFloat(formData.get('school_fees_amount')) || 0
-            });
-        }
-        if (document.getElementById('shopping').checked) {
-            data.expense_categories.push({
-                category: "Shopping",
-                amount: parseFloat(formData.get('shopping_amount')) || 0
-            });
-        }
-        if (document.getElementById('healthcare').checked) {
-            data.expense_categories.push({
-                category: "Healthcare",
-                amount: parseFloat(formData.get('healthcare_amount')) || 0
-            });
-        }
-
-        // Send the data to the backend
-        try {
-            const response = await fetch('mongodb+srv://dbuser:Password1@cluster0.sjal2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json();
-            alert(result.message);  // Display the response message from the server
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            alert("Error submitting the form.");
-        }
-    });
-</script>
-
-        <div class="form-group">
+    <form action="/submit" method="POST">
+            <div class="form-group">
             <label for="name">Name: </label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" placeholder="Firstname	Lastname" required>
         </div>
 
+	<div class="form-group">
+   		<label for="email">Email: </label>
+    		<input type="text" id="email" name="email" placeholder="Email" required>
+	</div>
         <div class="form-group">
             <label for="age">Age: </label>
             <select id="age" name="age" required>
@@ -189,8 +129,35 @@
             </select>
         </div>
 
+	<div class="form-group">
+   		<label for="total_income">Total Income: </label>
+    		<select id="total_income" name="total_income" required>
+		<option value="$0.00-$2000">0 - 2000</option>
+                <option value="$2001-$5000">2001 - 5000</option>
+                <option value="$5001-$10,000">5001 - 10,000</option>
+                <option value="$10,001-$15000">10,001 - 15,000</option>
+                <option value="15,000 +">15,000+</option>
+            </select>
+	</div>
+
+
         <div class="checkbox-group">
             <label>Expense Categories:</label>
+
+	    <div class="checkbox-item">
+                <input type="checkbox" id="food" name="expense_category" value="food" onclick="toggleAmountInput('food')">
+                <label for="food">Food</label>
+                <div id="food_amount" class="amount-input">
+                    <input type="number" id="food_amount_value" name="food_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+	    <div class="checkbox-item">
+                <input type="checkbox" id="transportation" name="expense_category" value="transportation" onclick="toggleAmountInput('transportation')">
+                <label for="transportation">Transportation</label>
+                <div id="transportation_amount" class="amount-input">
+                    <input type="number" id="transportation_amount_value" name="transportation_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
 
             <div class="checkbox-item">
                 <input type="checkbox" id="utilities" name="expense_category" value="Utilities" onclick="toggleAmountInput('utilities')">
@@ -233,10 +200,22 @@
             </div>
         </div>
 
+<div class="checkbox-item">
+                <input type="checkbox" id="other" name="expense_category" value="other" onclick="toggleAmountInput('other')">
+                <label for="other">other</label>
+                <div id="other_amount" class="amount-input">
+                    <input type="number" id="other_amount_value" name="other_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+        </div>
+
         <button type="submit">Submit</button>
     </form>
 
-    <script>
+	<br>
+    	<a href="/export_csv">Export Data to CSV</a>
+
+    	<script>
         // Function to toggle visibility of amount input fields based on selected checkboxes
         function toggleAmountInput(category) {
             const checkbox = document.getElementById(category);
