@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Biodata Form</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Blue color */
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9; /* Light grey background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF; /* Blue color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .checkbox-group {
+            margin-top: 5px;
+        }
+
+        /* Ensure checkbox, label, and amount input are aligned vertically */
+        .checkbox-item {
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Align items vertically */
+            margin-bottom: 5px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-bottom: 5px; /* Adds space between checkbox and label */
+        }
+
+        .checkbox-item label {
+            margin-bottom: 5px; /* Adds space between label and amount input */
+        }
+
+        .amount-input {
+            display: none; /* Hidden by default */
+            margin-top: 5px; /* Adds space between label and amount input */
+            width: 100%; /* Set to full width to fit in the form */
+        }
+
+        .amount-input input {
+            width: 100%; /* Make the input field take full width */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Participant Biodata Form</h1>
+    <form method="POST" action="">
+<script>
+    // Function to handle form submission
+    document.querySelector('form').addEventListener('submit', async function(event) {
+        event.preventDefault();  // Prevent default form submission
+
+        const formData = new FormData(this);
+        const data = {
+            name: formData.get('name'),
+            age: formData.get('age'),
+            gender: formData.get('gender'),
+            expense_categories: []
+        };
+
+        // Check which expense categories are selected
+        if (document.getElementById('utilities').checked) {
+            data.expense_categories.push({
+                category: "Utilities",
+                amount: parseFloat(formData.get('utilities_amount')) || 0
+            });
+        }
+        if (document.getElementById('entertainment').checked) {
+            data.expense_categories.push({
+                category: "Entertainment",
+                amount: parseFloat(formData.get('entertainment_amount')) || 0
+            });
+        }
+        if (document.getElementById('school_fees').checked) {
+            data.expense_categories.push({
+                category: "School Fees",
+                amount: parseFloat(formData.get('school_fees_amount')) || 0
+            });
+        }
+        if (document.getElementById('shopping').checked) {
+            data.expense_categories.push({
+                category: "Shopping",
+                amount: parseFloat(formData.get('shopping_amount')) || 0
+            });
+        }
+        if (document.getElementById('healthcare').checked) {
+            data.expense_categories.push({
+                category: "Healthcare",
+                amount: parseFloat(formData.get('healthcare_amount')) || 0
+            });
+        }
+
+        // Send the data to the backend
+        try {
+            const response = await fetch('mongodb+srv://dbuser:Password1@cluster0.sjal2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            alert(result.message);  // Display the response message from the server
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("Error submitting the form.");
+        }
+    });
+</script>
+
+        <div class="form-group">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age: </label>
+            <select id="age" name="age" required>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-45">36-45</option>
+                <option value="46-60">46-60</option>
+                <option value="60+">60+</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender: </label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="checkbox-group">
+            <label>Expense Categories:</label>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="utilities" name="expense_category" value="Utilities" onclick="toggleAmountInput('utilities')">
+                <label for="utilities">Utilities</label>
+                <div id="utilities_amount" class="amount-input">
+                    <input type="number" id="utilities_amount_value" name="utilities_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="entertainment" name="expense_category" value="Entertainment" onclick="toggleAmountInput('entertainment')">
+                <label for="entertainment">Entertainment</label>
+                <div id="entertainment_amount" class="amount-input">
+                    <input type="number" id="entertainment_amount_value" name="entertainment_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="school_fees" name="expense_category" value="School Fees" onclick="toggleAmountInput('school_fees')">
+                <label for="school_fees">School Fees</label>
+                <div id="school_fees_amount" class="amount-input">
+                    <input type="number" id="school_fees_amount_value" name="school_fees_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="shopping" name="expense_category" value="Shopping" onclick="toggleAmountInput('shopping')">
+                <label for="shopping">Shopping</label>
+                <div id="shopping_amount" class="amount-input">
+                    <input type="number" id="shopping_amount_value" name="shopping_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="healthcare" name="expense_category" value="Healthcare" onclick="toggleAmountInput('healthcare')">
+                <label for="healthcare">Healthcare</label>
+                <div id="healthcare_amount" class="amount-input">
+                    <input type="number" id="healthcare_amount_value" name="healthcare_amount" step="0.01" placeholder="$0.00">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Function to toggle visibility of amount input fields based on selected checkboxes
+        function toggleAmountInput(category) {
+            const checkbox = document.getElementById(category);
+            const amountInput = document.getElementById(category + '_amount');
+            if (checkbox.checked) {
+                amountInput.style.display = 'block'; // Show amount input next to the checkbox
+            } else {
+                amountInput.style.display = 'none'; // Hide amount input when checkbox is unchecked
+            }
+        }
+    </script>
+</body>
+</html>
