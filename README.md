@@ -194,16 +194,7 @@ Once the data is exported, the visualizations will be saved in the directory whe
 5. Push to your branch (`git push origin feature-branch`).
 6. Open a Pull Request.
 
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ### Notes:
 
-- Replace the `mongodb+srv://<username>:<password>@cluster0.sjal2.mongodb.net` URI in the code with your actual MongoDB credentials.
 - The data analysis and visualizations are generated from the CSV file that is exported from the Flask app.
 
