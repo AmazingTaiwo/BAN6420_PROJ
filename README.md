@@ -39,50 +39,36 @@ Before running the application, make sure you have the following:
 
 ### 1. Clone the Repository
 
-If you haven't already, clone the repository:
-
-```bash
-git clone https://github.com/your-repository-name.git
-cd your-repository-name
-```
+clone the repository:
+ - git clone https://github.com/AmazingTaiwo/BAN6420_PROJ.git
+ - cd your-repository-name
 
 ### 2. Install Dependencies
-
 Install required libraries:
-
-```bash
-pip install -r requirements.txt
-```
+ - pip install -r requirements.txt
 
 Make sure the `requirements.txt` file includes:
 
-```txt
-Flask==2.x.x
-pymongo==3.x.x
-pandas==1.x.x
-seaborn==0.x.x
-matplotlib==3.x.x
-```
+ - Flask==2.x.x
+ - pymongo==3.x.x
+ - pandas==1.x.x
+ - seaborn==0.x.x
+ - matplotlib==3.x.x
 
 ### 3. MongoDB Setup
 
-The app requires a MongoDB connection. You'll need a MongoDB Atlas account or a local MongoDB setup.
+The app requires a MongoDB connection. A connetion was established to MongoDB Atlas account on cloud via: mongodb+srv://dbuser:<db_password>@cluster0.sjal2.mongodb.net/
+   - Create a MongoDB database and collection.
+   - the password for the MongoDB URI in `flaskapp.py` with your actual MongoDB URI.
+      - uri = "mongodb+srv://dbuser:<password>@cluster0.sjal2.mongodb.net/?retryWrites=true&w=majority"
 
-- Create a MongoDB database and collection.
-- Replace the MongoDB URI in `app.py` with your actual MongoDB URI.
-
-Example:
-
-```python
-uri = "mongodb+srv://<username>:<password>@cluster0.sjal2.mongodb.net/?retryWrites=true&w=majority"
-```
 
 ### 4. Run the Application
 
 To run the Flask development server locally:
 
 ```bash
-python app.py
+python flaskapp.py
 ```
 
 The app will be accessible at `http://127.0.0.1:5000/`.
