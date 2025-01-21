@@ -64,7 +64,7 @@ The app requires a MongoDB connection. A connetion was established to MongoDB At
 
 
 ### 4. Run the Application
-To run the Flask development server, er have hosted the flaskapp on EC2 instance on AWS (ec2-13-49-68-37.eu-north-1.compute.amazonaws.com).
+To run the Flask development server, we have hosted the flaskapp (index.html, flaskapp.py) on EC2 instance on AWS (ec2-13-49-68-37.eu-north-1.compute.amazonaws.com).
 
  - We have already started the flask app with below on AWS
   - python flaskapp.py
@@ -75,7 +75,7 @@ To run the Flask development server, er have hosted the flaskapp on EC2 instance
 ## Using the Application
 
 1. **Homepage:**  
-   Access the homepage at `http://13.49.68.37:5000/`.
+   Navigate to the homepage (index.html) hosted via `http://13.49.68.37:5000/`.
 
 2. **User Registration & Login:**  
    Users can log in with their email address. If they don't have an account, they are prompted to register.
