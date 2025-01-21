@@ -1,6 +1,6 @@
 # BAN6420_PROJ
-# Final Project: Flask Healthcare Application
 # BAN6420: Programming in R & Python
+# Final Project: Flask Healthcare Application
 # Student Name: Taiwo Babalola
 # Learner ID: 162894
 
@@ -64,39 +64,18 @@ The app requires a MongoDB connection. A connetion was established to MongoDB At
 
 
 ### 4. Run the Application
+To run the Flask development server, er have hosted the flaskapp on EC2 instance on AWS (ec2-13-49-68-37.eu-north-1.compute.amazonaws.com).
 
-To run the Flask development server locally:
-
-```bash
-python flaskapp.py
-```
-
-The app will be accessible at `http://127.0.0.1:5000/`.
-
-### 5. Running in Production (optional)
-
-For production environments, it is recommended to use **Gunicorn** and **Nginx**.
-
-1. Install Gunicorn:
-
-```bash
-pip install gunicorn
-```
-
-2. Run the application with Gunicorn:
-
-```bash
-gunicorn -w 4 app:app
-```
-
-3. Set up Nginx as a reverse proxy (example provided in the previous instructions).
-
----
+ - We have already started the flask app with below on AWS
+  - python flaskapp.py
+ - navigate to the flask app on browser browser via: "http://13.49.68.37:5000/" to access the data collection form
+ - Register few candidate by providing the candidate name, email, age, gender, Total income and expense category (Foor, Transportation, Utilities, Entertainment, School fees, Shopping, Healtcare, Other) and submit
+   
 
 ## Using the Application
 
 1. **Homepage:**  
-   Access the homepage at `http://127.0.0.1:5000/` or your public IP if deployed.
+   Access the homepage at `http://13.49.68.37:5000/`.
 
 2. **User Registration & Login:**  
    Users can log in with their email address. If they don't have an account, they are prompted to register.
@@ -104,50 +83,52 @@ gunicorn -w 4 app:app
 3. **Profile Update:**  
    Once logged in, users can update their profile with information like name, age, gender, total income, and expense categories.
 
-4. **Export CSV:**  
-   Once data is entered, users can export their data in CSV format by clicking the export button. The file will be saved as `user_data.csv` and will be available for download.
+4. **Export CSV**  
+   Once data is entered, users can export their data in CSV format by clicking the export button at the bottom of the page.
+   Upon the click of the export to "CSV", it triggeres an export and saved as `user_data.csv` and will be available for download on your PC.
 
----
-
-## Visualizations
-
-The app also includes the following visualizations based on the user data:
-
-1. **Total Income Distribution:**  
-   A histogram that shows the distribution of total income across users.
+5. **Visuallization**
+    - Copy the downloaded 'user_data.csv to the same location where you cloned the repository for this project
+    - Open user_data_visualization.ipynb on python IDE of your choice or run with CMD.
+    - The execution of this user_data_visualization.ipynb file produce below visualizations and save each visual in .png format in your working directory. 
    
-   ![Total Income Distribution](total_income_distribution.png)
 
-2. **Total Expenses by Category:**  
-   A bar chart showing the total amount spent in different expense categories (food, transportation, healthcare, etc.).
+   ## Visualizations
+      The app also includes the following visualizations based on the user data:
 
-   ![Expense by Category](expense_by_category.png)
+      1. **Total Income Distribution:**  
+        A histogram that shows the distribution of total income across users.
+   
+           ![Total Income Distribution](total_income_distribution.png)
 
-3. **Income vs. Expenses:**  
-   A scatter plot comparing total income against total expenses to reveal any trends.
+     2. **Total Expenses by Category:**  
+        A bar chart showing the total amount spent in different expense categories (food, transportation, healthcare, etc.).
 
-   ![Income vs Expenses](income_vs_expenses.png)
+           ![Expense by Category](expense_by_category.png)
 
-4. **Expense Correlation Heatmap:**  
-   A heatmap showing the correlation between different expense categories.
+     3. **Income vs. Expenses:**  
+        A scatter plot comparing total income against total expenses to reveal any trends.
 
-   ![Expense Correlation Heatmap](expense_correlation_heatmap.png)
+           ![Income vs Expenses](income_vs_expenses.png)
 
-5. **Gender Distribution:**  
-   A count plot that shows the gender distribution of users.
+     4. **Expense Correlation Heatmap:**  
+        A heatmap showing the correlation between different expense categories.
 
-   ![Gender Distribution](gender_distribution.png)
+          ![Expense Correlation Heatmap](expense_correlation_heatmap.png)
 
-### How to View the Visualizations:
+     5. **Gender Distribution:**  
+        A count plot that shows the gender distribution of users.
 
-Once the data is exported, the visualizations will be saved in the directory where the Flask app is hosted. To access the visualizations:
+          ![Gender Distribution](gender_distribution.png)
+
+          ### How to View the Visualizations:
+
+          Once the data is exported, the visualizations will be saved in the directory where the Flask app is hosted. To access the visualizations:
 
 - Look for the files named `total_income_distribution.png`, `expense_by_category.png`, `income_vs_expenses.png`, `expense_correlation_heatmap.png`, and `gender_distribution.png` in the project directory.
 - These can be viewed in any image viewer.
 
----
-
-## Application Structure
+5. ## Application Structure
 
 ```
 /your-flask-app
@@ -167,20 +148,9 @@ Once the data is exported, the visualizations will be saved in the directory whe
 ├── gender_distribution.png        # Visualization of gender distribution
 └── requirements.txt     # List of Python dependencies
 └── README.md            # Documentation file (this file)
-```
 
----
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit the changes (`git commit -am 'Add new feature'`).
-5. Push to your branch (`git push origin feature-branch`).
-6. Open a Pull Request.
 
 ### Notes:
 
-- The data analysis and visualizations are generated from the CSV file that is exported from the Flask app.
+- The data analysis and visualizations are generated from the CSV file that is exported from the Flask app hosted on EC2 instance on AWS.
 
